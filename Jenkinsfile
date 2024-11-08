@@ -3,7 +3,7 @@ pipeline{
     stages {
         stage('Build') {
             steps {
-                echo 'stage principalBUILD no disponibles'
+                echo 'stage 1 Build no disponibles'
             }
         }
         stage('Test') {
@@ -14,6 +14,7 @@ pipeline{
         stage('Deploy') {
             steps {
                 echo 'stage 3 DEPLOY no disponibles'
+
             }
         }
     }
