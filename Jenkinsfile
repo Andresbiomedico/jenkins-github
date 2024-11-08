@@ -1,7 +1,7 @@
 pipeline{
     agent any
     stages {
-        stage('Test Docker') {
+        stage('Test Docker version') {
             steps {
                 sh 'docker --version'
                 sh 'docker ps'
