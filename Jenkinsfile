@@ -1,6 +1,12 @@
 pipeline{
     agent any
     stages {
+        stage('Test Docker') {
+            steps {
+                sh 'docker --version'
+                sh 'docker ps'
+            }
+        }
         stage('Build') {
             steps {
                 echo 'stage 1 Builds no disponibles'
