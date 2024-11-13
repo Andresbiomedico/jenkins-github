@@ -1,26 +1,28 @@
 pipeline{
     agent any
+    environment {
+        IMAGE_NAME = "gcr.io/gtech-324715/jenkins"
+    }
     stages {
-        stage('Test Docker version') {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker --version'
-                sh 'docker ps'
+                when {
+                    changeRequest()
+                }
+                script {
+                    def prNumber = env.CHANGE_ID
+                    def imageTag = "pr-${prNumber}"
+                    sh "docker build -t ${IMAGE_NAME}:${imageTag} ."
+                }
             }
         }
-        stage('Build') {
+        stage('Push Docker Image') {
             steps {
-                echo 'stage 1 Builds no disponibles'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'stage 2 TEST no disponibles'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'stage 3 DEPLOY no disponibles'
-
+                script {
+                    def prNumber = env.CHANGE_ID
+                    def imageTag = "pr-${prNumber}"
+                    sh "docker push ${IMAGE_NAME}:${imageTag}"
+                }
             }
         }
     }
