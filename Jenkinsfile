@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment {
-        IMAGE_NAME = "gcr.io/gtech-324715/jenkins"
+        IMAGE_NAME = "us-central1-docker.pkg.dev/gtech-324715/jenkins-repo/jenkins"
     }
     stages {
         stage('Build Docker Image') {
@@ -20,6 +20,7 @@ pipeline{
                  script {
                     def prNumber = env.CHANGE_ID
                     def imageTag = "pr-${prNumber}"
+                    sh "gcloud auth configure-docker us-central1-docker.pkg.dev"
                     sh "docker push ${IMAGE_NAME}:${imageTag}"
                 }
 
