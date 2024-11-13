@@ -9,13 +9,6 @@ pipeline{
                     changeRequest()
                 }
             steps {
-
-                script {
-                    def prNumber = env.CHANGE_ID
-                    def imageTag = "pr-${prNumber}"
-                    sh "docker build -t ${IMAGE_NAME}:${imageTag} ."
-                }
-
                  echo 'stage 1 Builds no disponibles'
             }
         }
@@ -26,11 +19,7 @@ pipeline{
             steps {
 
                  echo 'stage 1 Builds no disponibles'
-                script {
-                    def prNumber = env.CHANGE_ID
-                    def imageTag = "pr-${prNumber}"
-                    sh "docker push ${IMAGE_NAME}:${imageTag}"
-                }
+
             }
         }
     }
