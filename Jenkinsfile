@@ -18,6 +18,9 @@ pipeline{
         }
         stage('Push Docker Image') {
             steps {
+                 when {
+                    changeRequest()
+                }
                 script {
                     def prNumber = env.CHANGE_ID
                     def imageTag = "pr-${prNumber}"
