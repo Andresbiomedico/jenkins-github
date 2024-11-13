@@ -10,7 +10,7 @@ pipeline{
         stage('Push Docker Image') {
             steps {
 
-                 echo 'stage 1 Builds no disponibles'
+                 echo 'stage 2 Builds no disponibles'
 
             }
         }
