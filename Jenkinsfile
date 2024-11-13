@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment {
+        IMAGE_NAME = "gcr.io/gtech-324715/jenkins"
+    }
     stages {
         stage('Build Docker Image') {
             when { branch 'PR-*' }
