@@ -20,7 +20,6 @@ pipeline{
                  script {
                     def prNumber = env.CHANGE_ID
                     def imageTag = "pr-${prNumber}"
-                    sh "gcloud auth configure-docker us-central1-docker.pkg.dev"
                     sh "docker push ${IMAGE_NAME}:${imageTag}"
                 }
 
