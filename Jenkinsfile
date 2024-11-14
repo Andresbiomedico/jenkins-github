@@ -18,6 +18,7 @@ pipeline{
             when { branch 'PR-*' }
             steps {
                  script {
+                    sh "gcloud auth list"
                     def prNumber = env.CHANGE_ID
                     def imageTag = "pr-${prNumber}"
                     sh "docker push ${IMAGE_NAME}:${imageTag}"
