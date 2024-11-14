@@ -33,5 +33,24 @@ pipeline{
                 }
             }
         }
+        stage('Deploy to Cloud Run') {
+            when { branch 'PR-*' }
+            steps {
+                script {
+                    def prNumber = env.CHANGE_ID
+                    def imageTag = "pr-${prNumber}"
+                    def imageUri = "${IMAGE_NAME}:${imageTag}"
+                    def SERVICE_NAME = "jenkins-pr-${prNumber}"
+                    // Despliegue de la imagen en Cloud Run
+                    sh """
+                    gcloud run deploy ${SERVICE_NAME} \
+                    --image=${imageUri} \
+                    --region=${REGION} \
+                    --platform=managed \
+                    --allow-unauthenticated
+                    """
+                }
+            }
+        }
     }
 }
