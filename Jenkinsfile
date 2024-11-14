@@ -19,6 +19,7 @@ pipeline{
             steps {
                  script {
                     sh "gcloud auth list"
+                    sh "gcloud projects list"
                     def prNumber = env.CHANGE_ID
                     def imageTag = "pr-${prNumber}"
                     sh "docker push ${IMAGE_NAME}:${imageTag}"
