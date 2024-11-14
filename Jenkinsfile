@@ -48,6 +48,7 @@ pipeline{
                     --region=${REGION} \
                     --platform=managed \
                     --allow-unauthenticated
+                    --timeout=600s
                     """
                 }
             }
