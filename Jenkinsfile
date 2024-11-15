@@ -5,6 +5,7 @@ pipeline{
         CREDENTIALS_ID = "sa-jenkins-pipeline"
         REGION = "us-central1"
         IMAGE_NAME = "${REGION}-docker.pkg.dev/${PROJECT_ID}/jenkins-repo/jenkins"
+         GH_TOKEN = 'your-github-token-here'
     }
     stages {
         stage('Build Docker Image') {
@@ -84,9 +85,11 @@ pipeline{
             when { branch 'PR-*' }
             steps {
                 script {
-                    sh """
-                    gh pr merge ${env.CHANGE_ID} --merge --repo github.com/Andresbiomedico/jenkins-github/
-                    """
+                    withCredentials([string(credentialsId: 'github-token', variable: 'GH_TOKEN')]) {
+                        sh """
+                        gh pr merge ${env.CHANGE_ID} --merge --repo github.com/Andresbiomedico/jenkins-github/
+                        """
+                    }
                 }
             }
         }
