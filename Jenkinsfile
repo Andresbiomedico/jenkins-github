@@ -14,7 +14,7 @@ pipeline{
                  script {
                     def prNumber = env.CHANGE_ID
                     def imageTag = "pr-${prNumber}"
-                    slackSend color:'good', message: "🚀 Deployment started for PR #${env.CHANGE_ID}. Repository: ${env.GIT_REPO}, Branch: ${env.BRANCH_NAME}.")
+                    slackSend color:'good', message: "🚀 Deployment started for PR #${env.CHANGE_ID}. Repository: ${env.GIT_REPO}, Branch: ${env.BRANCH_NAME}."
                     sh "docker build -t ${IMAGE_NAME}:${imageTag} ."
                 }
             }
