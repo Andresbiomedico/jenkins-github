@@ -87,7 +87,7 @@ pipeline{
                 script {
                     withCredentials([string(credentialsId: 'github-token', variable: 'GH_TOKEN')]) {
                         sh """
-                        gh pr merge ${env.CHANGE_ID} --merge --repo Andresbiomedico/jenkins-github/
+                        gh pr merge ${env.CHANGE_ID} --merge --repo Andresbiomedico/jenkins-github
                         """
                     }
                 }
