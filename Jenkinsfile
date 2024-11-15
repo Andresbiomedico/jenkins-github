@@ -73,7 +73,7 @@ pipeline{
                         returnStdout: true
                     ).trim()
 
-                    if (response == '200') {
+                    if (response != '200') {
                         error "Test failed: Service did not return 200 OK. Response code was ${response}"
                     } else {
                         echo "Test passed: Service returned 200 OK"

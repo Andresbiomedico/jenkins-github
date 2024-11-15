@@ -25,7 +25,7 @@ app.add_middleware(
 
 @app.get("/")
 async def root():
-    return {"message": "server on line"}
+    return {"message": "barsa campeon"}
 
 
 if __name__ == "__main__":
