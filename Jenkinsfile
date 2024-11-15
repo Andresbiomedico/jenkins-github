@@ -47,7 +47,7 @@ pipeline{
                     --image=${imageUri} \
                     --region=${REGION} \
                     --platform=managed \
-                    --allow-unauthenticated
+                    --allow-unauthenticated\
                     --set-env-vars API_VERSION=1.0.0,APP_NAME=deploy-github
                     """
                 }
