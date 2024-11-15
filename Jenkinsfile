@@ -73,7 +73,7 @@ pipeline{
                         returnStdout: true
                     ).trim()
 
-                    if (response != '200') {
+                    if (response == '200') {
                         error "Test failed: Service did not return 200 OK. Response code was ${response}"
                     } else {
                         echo "Test passed: Service returned 200 OK"
@@ -97,12 +97,12 @@ pipeline{
     }
     post {
         failure {
-            slackSend color:'danger', message: "Build ${env.BUILD_NUMBER} failed in stage ${env.STAGE_NAME}"
+            slackSend color:'danger', message: "Build PR-${env.env.CHANGE_ID} failed in stage ${env.STAGE_NAME}"
         }
         success {
             script {
                 if(env.BRANCH_NAME != 'main') {
-                    slackSend color:'good', message: "Build for PR ${env.BUILD_NUMBER} succeeded "
+                    slackSend color:'good', message: "Build for PR-${env.env.CHANGE_ID} succeeded "
                 }
             }
         }
