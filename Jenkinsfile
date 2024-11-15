@@ -80,7 +80,7 @@ pipeline{
             }
         }
 
-        stage('Merge PR to Main') {
+        stage('Merge -PR to Main') {
             when { branch 'PR-*' }
             steps {
                 script {
