@@ -94,15 +94,15 @@ pipeline{
                 }
             }
         }
-        post {
-            def prNumber = env.CHANGE_ID
-            def buildNumber = "pr-${prNumber}"
-            failure {
-                slackSend color:'danger', message: "Build ${env.BUILD_NUMBER} failed in stage ${env.STAGE_NAME}"
-            }
-            success {
-                slackSend color:'good', message: "Build ${env.BUILD_NUMBER} succeeded in stage ${env.STAGE_NAME}"
-            }
     }
+    post {
+        def prNumber = env.CHANGE_ID
+        def buildNumber = "pr-${prNumber}"
+        failure {
+            slackSend color:'danger', message: "Build ${env.BUILD_NUMBER} failed in stage ${env.STAGE_NAME}"
+        }
+        success {
+            slackSend color:'good', message: "Build ${env.BUILD_NUMBER} succeeded in stage ${env.STAGE_NAME}"
+        }
     }
 }
