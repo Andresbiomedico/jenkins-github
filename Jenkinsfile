@@ -14,6 +14,7 @@ pipeline{
                  script {
                     def prNumber = env.CHANGE_ID
                     def imageTag = "pr-${prNumber}"
+                    slackSend color:'good', message: "🚀 Deployment started for PR #${env.CHANGE_ID}. Repository: ${env.GIT_REPO}, Branch: ${env.BRANCH_NAME}.")
                     sh "docker build -t ${IMAGE_NAME}:${imageTag} ."
                 }
             }
@@ -93,5 +94,15 @@ pipeline{
                 }
             }
         }
+        post {
+            def prNumber = env.CHANGE_ID
+            def buildNumber = "pr-${prNumber}"
+            failure {
+                slackSend color:'danger', message: "Build ${env.BUILD_NUMBER} failed in stage ${env.STAGE_NAME}"
+            }
+            success {
+                slackSend color:'good', message: "Build ${env.BUILD_NUMBER} succeeded in stage ${env.STAGE_NAME}"
+            }
+    }
     }
 }
