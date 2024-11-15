@@ -53,5 +53,27 @@ pipeline{
                 }
             }
         }
+        stage('Test Cloud Run Deployment') {
+            when { branch 'PR-*' }
+            steps {
+                script {
+                    def serviceUrl = sh(
+                        script: "gcloud run services describe ${SERVICE_NAME} --region=${REGION} --format='value(status.url)'",
+                        returnStdout: true
+                    ).trim()
+
+                    def response = sh(
+                        script: "curl -s -o /dev/null -w '%{http_code}' ${serviceUrl}",
+                        returnStdout: true
+                    ).trim()
+
+                    if (response != '200') {
+                        error "Test failed: Service did not return 200 OK. Response code was ${response}"
+                    } else {
+                        echo "Test passed: Service returned 200 OK"
+                    }
+                }
+            }
+        }
     }
 }
