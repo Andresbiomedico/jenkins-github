@@ -100,7 +100,11 @@ pipeline{
             slackSend color:'danger', message: "Build ${env.BUILD_NUMBER} failed in stage ${env.STAGE_NAME}"
         }
         success {
-            slackSend color:'good', message: "Build for PR ${env.BUILD_NUMBER} succeeded "
+            script {
+                if(env.BRANCH_NAME != 'main') {
+                    slackSend color:'good', message: "Build for PR ${env.BUILD_NUMBER} succeeded "
+                }
+            }
         }
     }
 }
