@@ -41,14 +41,14 @@ pipeline{
                     def imageTag = "pr-${prNumber}"
                     def imageUri = "${IMAGE_NAME}:${imageTag}"
                     def SERVICE_NAME = "jenkins-pr-${prNumber}"
-                    // Despliegue de la imagen en Cloud Run
+
                     sh """
                     gcloud run deploy ${SERVICE_NAME} \
                     --image=${imageUri} \
                     --region=${REGION} \
                     --platform=managed \
                     --allow-unauthenticated
-                    --timeout=3600s
+                    --set-env-vars API_VERSION=1.0.0,APP_NAME=deploy-github
                     """
                 }
             }
