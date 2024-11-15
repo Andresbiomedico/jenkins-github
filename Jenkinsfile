@@ -84,7 +84,6 @@ pipeline{
             when { branch 'PR-*' }
             steps {
                 script {
-                    // Realizar el merge usando la API de GitHub o un comando de git
                     sh """
                     gh pr merge ${env.CHANGE_ID} --merge --repo github.com/Andresbiomedico/jenkins-github/
                     """
