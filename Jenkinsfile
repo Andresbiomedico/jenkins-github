@@ -57,6 +57,10 @@ pipeline{
             when { branch 'PR-*' }
             steps {
                 script {
+                    def prNumber = env.CHANGE_ID
+                    def imageTag = "pr-${prNumber}"
+                    def SERVICE_NAME = "jenkins-${imageTag}"
+
                     def serviceUrl = sh(
                         script: "gcloud run services describe ${SERVICE_NAME} --region=${REGION} --format='value(status.url)'",
                         returnStdout: true
