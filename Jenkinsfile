@@ -97,12 +97,12 @@ pipeline{
     }
     post {
         failure {
-            slackSend color:'danger', message: "Build PR-${env.env.CHANGE_ID} failed in stage ${env.STAGE_NAME}"
+            slackSend color:'danger', message: "Build PR-${env.CHANGE_ID} failed in stage ${env.STAGE_NAME}"
         }
         success {
             script {
                 if(env.BRANCH_NAME != 'main') {
-                    slackSend color:'good', message: "Build for PR-${env.env.CHANGE_ID} succeeded "
+                    slackSend color:'good', message: "Build for PR-${env.CHANGE_ID} succeeded "
                 }
             }
         }
